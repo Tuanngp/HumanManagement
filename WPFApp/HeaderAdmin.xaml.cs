@@ -3,6 +3,8 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
+using DataAccessObjects;
+using Repositories;
 
 namespace WPFApp
 {
@@ -57,7 +59,6 @@ namespace WPFApp
 
                 switch (button.Content.ToString())
                 {
-                    // Uncomment and implement the HomeView navigation if needed
                     case "Trang Chủ":
                         var homeView = new AdminDashboard();
                         homeView.Show();
@@ -96,6 +97,11 @@ namespace WPFApp
                     case "Nghỉ phép":
                         var leaveView = new LeaveRequestView();
                         leaveView.Show();
+                        currentWindow.Close();
+                        break;
+                    case "Thông báo":
+                        var notificationWindow = new NotificationManagement();
+                        notificationWindow.Show();
                         currentWindow.Close();
                         break;
                     default:

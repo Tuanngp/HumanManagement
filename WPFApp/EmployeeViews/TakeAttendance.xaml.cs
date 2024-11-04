@@ -32,11 +32,11 @@ namespace WPFApp
                 EmployeeIdTextBox.Text = employee.EmployeeId.ToString();
                 EmployeeNameTextBox.Text = employee.FullName;
                 AttendanceDateTextBox.Text = DateTime.Now.ToString("yyyy-MM-dd");
-                StatusTextBox.Text = "Present";
+                StatusTextBox.Text = "Có mặt";
             }
             else
             {
-                MessageBox.Show("Employee not found.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Không tìm thấy nhân viên.", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
                 Close();
             }
         }
@@ -49,17 +49,17 @@ namespace WPFApp
                 {
                     EmployeeId = int.Parse(EmployeeIdTextBox.Text),
                     Date = DateOnly.FromDateTime(DateTime.Now),
-                    Status = "Present"
+                    Status = "Có mặt"
                 };
                 _attendanceRepository.AddAttendance(attendance);
-                MessageBox.Show("Attendance recorded successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Chấm công thành công.", "Thành công", MessageBoxButton.OK, MessageBoxImage.Information);
                 HomeEmployee homeEmployee = new HomeEmployee();
                 homeEmployee.Show();
                 this.Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error recording attendance: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Lỗi khi chấm công: {ex.Message}", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

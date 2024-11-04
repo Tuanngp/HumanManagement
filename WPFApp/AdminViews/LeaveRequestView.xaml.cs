@@ -1,19 +1,9 @@
-﻿using BusinessObjects;
+﻿using System.Windows;
+using System.Windows.Controls;
+using BusinessObjects;
 using DataAccessObjects;
 using Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+
 namespace WPFApp
 {
     /// <summary>
@@ -72,74 +62,5 @@ namespace WPFApp
                 }
             }
         }
-
-        private void NavigateButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (sender is Button button)
-            {
-                Window currentWindow = Window.GetWindow(this);
-
-                switch (button.Content.ToString())
-                {
-                    // Uncomment and implement the HomeView navigation if needed
-                    case "Trang Chủ":
-                        var homeView = new AdminDashboard();
-                        homeView.Show();
-                        currentWindow.Close();
-                        break;
-                    case "Tài khoản":
-                        var account = new AccountManagement();
-                        account.Show();
-                        currentWindow.Close();
-                        break;
-                    case "Nhân viên":
-                        var employeeView = new EmployeeWindow();
-                        employeeView.Show();
-                        currentWindow.Close();
-                        break;
-                    case "Bộ phận":
-                        var departmentView = new DepartmentManagement();
-                        departmentView.Show();
-                        currentWindow.Close();
-                        break;
-                    case "Vị trí":
-                        var position = new PositionManagement();
-                        position.Show();
-                        currentWindow.Close();
-                        break;
-                    case "Chấm công":
-                        var attendanceView = new AttendanceView();
-                        attendanceView.Show();
-                        currentWindow.Close();
-                        break;
-                    case "Bảng lương":
-                        var salaryView = new SalaryView();
-                        salaryView.Show();
-                        currentWindow.Close();
-                        break;
-                    case "Nghỉ phép":
-                        var leaveView = new LeaveRequestView();
-                        leaveView.Show();
-                        currentWindow.Close();
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
-
-        private void LogoutButton_Click(object sender, RoutedEventArgs e)
-        {
-            // Clear the session
-            SessionManager.CurrentAccount = null;
-
-            // Redirect to login screen
-            LoginScreen loginScreen = new LoginScreen();
-            loginScreen.Show();
-
-            // Close the current window
-            Window.GetWindow(this).Close();
-        }
-
     }
 }

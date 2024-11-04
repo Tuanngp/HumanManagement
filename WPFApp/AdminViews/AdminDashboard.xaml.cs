@@ -28,17 +28,14 @@ namespace WPFApp
         public AdminDashboard()
         {
             InitializeComponent();
-
-            // Khởi tạo repositories
+            
             var context = new FuhrmContext();
             var employeeDAO = new EmployeeDAO(context);
             _employeeRepository = new EmployeeRepository(employeeDAO);
-
-            // Khởi tạo collection cho thống kê phòng ban
+            
             _departmentStats = new ObservableCollection<DepartmentStats>();
             EmployeesByDepartmentItemsControl.ItemsSource = _departmentStats;
-
-            // Thiết lập timer để tự động refresh dữ liệu
+            
             _refreshTimer = new DispatcherTimer
             {
                 Interval = TimeSpan.FromMinutes(5)
@@ -81,10 +78,17 @@ namespace WPFApp
                 .Select(group => new
                 {
                     Department = group.Key,
-                    Count = group.Count()
+                    Count = group.Count(),
                 }).ToList();
 
-            EmployeesByDepartmentItemsControl.ItemsSource = employeesByDepartment;
+            EmployeesByDepartmentItemsControl.ItemsSource = employeesByDepartment
+                .Select(d => new
+                {
+                    DepartmentName = d.Department,
+                    EmployeeCount = d.Count,
+                    Percentage = $"{(d.Count / (double)context.Employees.Count() * 100):F2}%",
+                    ProgressValue = d.Count / (double)context.Employees.Count()
+                }).ToList();
         }
 
         private void LoadLeaveRequests()
@@ -122,7 +126,7 @@ namespace WPFApp
             {
                 var recentNotifications = context.Notifications
                     .OrderByDescending(n => n.CreatedDate)
-                    .Take(5)  // Chỉ lấy 5 thông báo mới nhất
+                    .Take(10)
                     .Select(n => new
                     {
                         Content = n.Content,
@@ -134,74 +138,7 @@ namespace WPFApp
                 NotificationsItemsControl.ItemsSource = recentNotifications;
             }
         }
-
-        private void NavigateButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (sender is Button button)
-            {
-                Window currentWindow = Window.GetWindow(this);
-
-                switch (button.Content.ToString())
-                {
-                    // Uncomment and implement the HomeView navigation if needed
-                    case "Trang Chủ":
-                        var homeView = new AdminDashboard();
-                        homeView.Show();
-                        currentWindow.Close();
-                        break;
-                    case "Tài khoản":
-                        var account = new AccountManagement();
-                        account.Show();
-                        currentWindow.Close();
-                        break;
-                    case "Nhân viên":
-                        var employeeView = new EmployeeWindow();
-                        employeeView.Show();
-                        currentWindow.Close();
-                        break;
-                    case "Bộ phận":
-                        var departmentView = new DepartmentManagement();
-                        departmentView.Show();
-                        currentWindow.Close();
-                        break;
-                    case "Vị trí":
-                        var position = new PositionManagement();
-                        position.Show();
-                        currentWindow.Close();
-                        break;
-                    case "Chấm công":
-                        var attendanceView = new AttendanceView();
-                        attendanceView.Show();
-                        currentWindow.Close();
-                        break;
-                    case "Bảng lương":
-                        var salaryView = new SalaryView();
-                        salaryView.Show();
-                        currentWindow.Close();
-                        break;
-                    case "Nghỉ phép":
-                        var leaveView = new LeaveRequestView();
-                        leaveView.Show();
-                        currentWindow.Close();
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
-
-        private void LogoutButton_Click(object sender, RoutedEventArgs e)
-        {
-            // Clear the session
-            SessionManager.CurrentAccount = null;
-
-            // Redirect to login screen
-            LoginScreen loginScreen = new LoginScreen();
-            loginScreen.Show();
-
-            // Close the current window
-            Window.GetWindow(this).Close();
-        }
+        
         protected override void OnClosed(EventArgs e)
         {
             _refreshTimer.Stop();

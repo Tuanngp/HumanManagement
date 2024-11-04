@@ -157,6 +157,7 @@
                     <Button Content="Bộ phận" Style="{DynamicResource HeaderButtonStyle}" Click="NavigateButton_Click"/>
                     <Button Content="Vị trí" Style="{DynamicResource HeaderButtonStyle}" Click="NavigateButton_Click"/>
                     <Button Content="Chấm công" Style="{DynamicResource HeaderButtonStyle}" Click="NavigateButton_Click"/>
+                    <Button Content="Thông báo" Style="{DynamicResource HeaderButtonStyle}" Click="NavigateButton_Click"/>
                     <Button Content="Bảng lương" Style="{DynamicResource HeaderButtonStyle}" Click="NavigateButton_Click"/>
                     <Button Content="Nghỉ phép" Style="{DynamicResource HeaderButtonStyle}" Click="NavigateButton_Click"/>
                 </StackPanel>

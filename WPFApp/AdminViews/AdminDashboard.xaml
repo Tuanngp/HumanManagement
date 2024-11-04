@@ -2,12 +2,15 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
         xmlns:local="clr-namespace:WPFApp"
+        xmlns:converter="clr-namespace:WPFApp.Converter"
         Title="Admin Dashboard"
         Height="Auto" Width="Auto"
         WindowStartupLocation="CenterScreen"
         WindowState="Maximized">
 
     <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <converter:NewNotificationBackgroundConverter x:Key="NewNotificationBackgroundConverter" />
         <!-- Info card styling -->
         <Style x:Key="InfoCardStyle" TargetType="Border">
             <Setter Property="Background" Value="White"/>
@@ -93,10 +96,17 @@
 
                         <!-- Department stats -->
                         <Border Grid.Column="0" Style="{StaticResource InfoCardStyle}" Margin="10,10,5,10">
-                            <StackPanel>
-                                <TextBlock Text="Nhân Viên Theo Phòng Ban" Style="{StaticResource CardTitleStyle}"/>
-                                <ItemsControl x:Name="EmployeesByDepartmentItemsControl"/>
-                            </StackPanel>
+                            <ItemsControl x:Name="EmployeesByDepartmentItemsControl">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal" Margin="5">
+                                            <TextBlock Text="{Binding DepartmentName}" Width="150" FontWeight="Bold" />
+                                            <TextBlock Text="{Binding EmployeeCount}" Width="100" TextAlignment="Center" />
+                                            <TextBlock Text="{Binding Percentage}" Width="80" TextAlignment="Center" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
                         </Border>
 
                         <!-- Attendance stats -->
@@ -134,12 +144,15 @@
                             <ItemsControl x:Name="NotificationsItemsControl">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
-                                        <Border BorderBrush="#EEEEEE" 
-                                                BorderThickness="0,0,0,1" 
-                                                Padding="0,10">
-                                            <TextBlock Text="{Binding}" 
-                                                     TextWrapping="Wrap"/>
-                                        </Border>
+                                        <StackPanel Orientation="Vertical" Margin="5" Background="{Binding IsNew, Converter={StaticResource NewNotificationBackgroundConverter}}">
+                                            <TextBlock Text="{Binding Content}" FontWeight="Bold" FontSize="14" />
+                                            <TextBlock Text="{Binding Date}" FontSize="12" Foreground="Gray" Margin="0,2,0,0"/>
+                
+                                            <!-- Đánh dấu cho thông báo mới -->
+                                            <TextBlock Text="New" FontWeight="Bold" Foreground="Red" 
+                                                       Visibility="{Binding IsNew, Converter={StaticResource BooleanToVisibilityConverter}}" 
+                                                       FontSize="12" Margin="0,5,0,0"/>
+                                        </StackPanel>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>

@@ -33,7 +33,7 @@ namespace WPFApp
             }
             else
             {
-                MessageBox.Show("Employee not found.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Không thể tìm thấy nhân viên.", "Đã xảy ra lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
                 Close();
             }
         }
