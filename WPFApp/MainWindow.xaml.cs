@@ -1,15 +1,13 @@
-﻿
-using Repositories;
-using System.Windows;
-using System.Windows.Controls;
-using WPFApp.Models;
+﻿using System.Windows;
 using BusinessObjects;
+using Repositories;
+
 namespace WPFApp
 {
     public partial class MainWindow : Window
     {
         private readonly int employeeID;
-        public BusinessObjects.LeaveRequest LoggedInEmployee { get; set; }
+        public LeaveRequest LoggedInEmployee { get; set; }
         public MainWindow(int employeeId)
         {
             InitializeComponent();
@@ -18,7 +16,6 @@ namespace WPFApp
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
-           
         {
             AttendanceForm attendanceForm = new AttendanceForm(employeeID);
             attendanceForm.Show();

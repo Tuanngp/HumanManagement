@@ -1,15 +1,6 @@
-﻿using BusinessObjects;
+﻿using System.Windows;
+using BusinessObjects;
 using Repositories;
-using System;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using WPFApp.Models;
 
 namespace WPFApp
 {
@@ -48,23 +39,23 @@ namespace WPFApp
                     }
                     else
                     {
-                        System.Windows.MessageBox.Show("Incorrect password");
+                        MessageBox.Show("Incorrect password");
                     }
                 }
                 else
                 {
-                    System.Windows.MessageBox.Show("Incorrect username");
+                    MessageBox.Show("Incorrect username");
                 }
             }
             else
             {
-                System.Windows.MessageBox.Show("Please enter username and password");
+                MessageBox.Show("Please enter username and password");
             }
         }
     }
 
     public static class SessionManager
     {
-        public static BusinessObjects.Account CurrentAccount { get; set; }
+        public static Account CurrentAccount { get; set; }
     }
 }
