@@ -158,7 +158,7 @@
                                     Height="150" 
                                     CornerRadius="75"
                                     ClipToBounds="True">
-                                <Image x:Name="EmployeeImage" Width="150" Height="150" Source="{Binding ProfilePicture, FallbackValue='placeholder.png'}" Stretch="UniformToFill" Margin="0,10"/>
+                                <Image x:Name="EmployeeImage" Width="150" Height="150" Source="{Binding ProfilePicture, FallbackValue='placeholder.png'}" Stretch="UniformToFill" Margin="0,10" Visibility="Collapsed"/>
                             </Border>
                             <TextBlock x:Name="ProfilePictureUrlTextBlock" Text="{Binding ProfilePicture}" FontSize="12" Foreground="#333" TextWrapping="Wrap" Margin="0,5"/>
                             <Button Content="Change Photo" 
@@ -223,12 +223,6 @@
                     </StackPanel>
                 </StackPanel>
             </ScrollViewer>
-            <!-- ~1~ Employee Image Section @1@ -->
-            <!-- <StackPanel Grid.Column="2" VerticalAlignment="Center" Background="#F5F5F5" Margin="10"> -->
-            <!--     <Image x:Name="EmployeeImage" Width="150" Height="150" Source="{Binding ProfilePicture, FallbackValue='placeholder.png'}" Stretch="UniformToFill" Margin="0,10"/> -->
-            <!--     <TextBlock x:Name="ProfilePictureUrlTextBlock" Text="{Binding ProfilePicture}" FontSize="12" Foreground="#333" TextWrapping="Wrap" Margin="0,5"/> -->
-            <!--     <Button Content="Choose Image" Width="120" Height="30" Click="ChooseImageButton_Click" Background="#4A90E2" Foreground="White"/> -->
-            <!-- </StackPanel> -->
         </Grid>
     </Grid>
 </Window>
